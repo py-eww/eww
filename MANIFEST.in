@@ -1,0 +1,9 @@
+include README.rst
+include CONTRIBUTORS
+include LICENSE
+include Makefile
+include requirements.txt
+include tox.ini
+recursive-include docs *
+recursive-exclude docs/build *
+recursive-exclude * .DS_Store

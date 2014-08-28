@@ -1,0 +1,134 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+    eww.client
+    ~~~~~~~~~~
+
+    eww.client is the recommended frontend for connecting to a listening eww
+    instance.
+
+    Strictly, this client isn't required.  Netcat and the like *currently* work
+    just fine.  However, by putting this client out the door, we open up the
+    option to extend eww in a backwards compatible way with fun things like SSH,
+    TTY support and the like.
+
+    :copyright: (c) 2014 by Alex Philipp.
+    :license: MIT, see LICENSE for more details.
+"""
+# pylint: disable=invalid-name, unused-import
+
+import optparse
+try:
+    import readline
+except ImportError:
+    # :(
+    pass
+import socket
+import sys
+
+class ConnectionClosed(Exception):
+    """Raised when a connection is closed."""
+    pass
+
+class EwwClient(object):
+    """Manages all client communication."""
+
+    def __init__(self, host, port):
+        """Init."""
+        self.host = host
+        self.port = port
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.current_prompt = None
+
+        self.prompts = []
+        self.prompts.append('(eww) ')
+        self.prompts.append('>>> ')
+        self.prompts.append('... ')
+
+    def connect(self):
+        """Connects to an Eww instance."""
+        self.sock.connect((self.host, self.port))
+
+    def display_output(self):
+        """Displays output from the Eww instance."""
+
+        while True:
+            msg = self.sock.recv(1024)
+
+            if not msg:
+                raise ConnectionClosed
+
+            # If the last line in the msg is a prompt, we've got
+            # the complete message.  We'll want to reset current_prompt
+            # and print the message (minus the prompt).  Otherwise
+            # we just print the part of the message we've received
+            # so far.
+            last_line = msg.split('\n')[-1]
+            if last_line in self.prompts:
+                self.current_prompt = last_line
+
+                sys.stdout.write(msg[:-len(last_line)])
+                sys.stdout.flush()
+                return
+            else:
+                sys.stdout.write(msg)
+                sys.stdout.flush()
+
+    def get_input(self):
+        """Collects user input and sends it to the Eww instance."""
+
+        user_input = raw_input(self.current_prompt)
+        if user_input == 'exit' or user_input == 'quit':
+            if self.current_prompt == '(Eww) ':
+                try:
+                    self.sock.shutdown(socket.SHUT_RDWR)
+                except socket.error:
+                    pass
+                self.sock.close()
+                raise ConnectionClosed
+        self.sock.sendall(user_input + '\n')
+
+    def clientloop(self):
+        """Repeatedly loops through display_output and get_input."""
+
+        try:
+            while True:
+                self.display_output()
+                self.get_input()
+        except ConnectionClosed:
+            pass
+
+if __name__ == '__main__':
+
+    parser = optparse.OptionParser()
+    parser.add_option('-s', '--server',
+                      action='store',
+                      dest='host',
+                      default='localhost',
+                      type='str',
+                      help='The server to connect to.')
+    parser.add_option('-p', '--port',
+                      action='store',
+                      dest='port',
+                      default=10000,
+                      type='int',
+                      help='The port to connect on.')
+
+    options, remainder = parser.parse_args()
+    del remainder
+    options = vars(options)
+
+    client = EwwClient(options['host'], options['port'])
+
+    try:
+        client.connect()
+    except socket.error:
+        print 'Connection refused.'
+        sys.exit(1)
+
+    try:
+        client.clientloop()
+    except KeyboardInterrupt:
+        pass
+
+    print "Shutting down..."
