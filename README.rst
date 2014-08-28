@@ -1,3 +1,3 @@
-.. image:: https://magnum.travis-ci.com/alex-sf/eww.svg?token=UfF5GewChHQA2Zz4R6pW&branch=master
-    :target: https://magnum.travis-ci.com/alex-sf/eww
+.. image:: https://travis-ci.org/py-eww/eww.svg?branch=master
+    :target: https://travis-ci.org/py-eww/eww
 Coming soon.
