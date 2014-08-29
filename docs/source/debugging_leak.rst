@@ -27,7 +27,7 @@ This script here leaks memory quite badly::
 
     if __name__ == '__main__':
 
-        for _ in range(100):
+        for num in range(500):
             parent = Parent()
             child = Child()
 
@@ -48,3 +48,81 @@ If only all reference cycles were this simple.
     *This assumes you are using the CPython implementation.  The Python specification does not mention anything about object management, and individual implementations (PyPy, Jython, IronPython) may use different garbage collection techniques.*
 
 Let's, for the exercise, say you've been running this in production for a while and notice that memory usage is constantly growing.
+
+We'll add Eww to the script and see what we can find out.
+
+Add :code:`import eww` to the script::
+
+    #! /usr/bin/env python
+
+    import eww
+
+Then we'll make two small changes to the code creating the objects::
+
+    if __name__ == '__main__':
+
+        eww.embed()  # 1
+
+        for num in range(500):
+            parent = Parent()
+            child = Child()
+
+            parent.child = child
+            child.parent = parent
+
+        import time; time.sleep(600)  # 2
+
+We added a call to :code:`eww.embed()`, which sets up everything for Eww.  We also added a sleep at the end so the script doesn't immediately exit and we can look at what's going on.  Go ahead and run the script.
+
+Now, we'll fire up the Eww client.  In another terminal window, run :code:`eww`.  You should see something like this::
+
+    (eww)basecamp ~: eww
+    Welcome to the Eww console. Type 'help' at any point for a list of available commands.
+    Running in PID: 4899 Name: ./leak_demo.py
+    (eww)
+
+The Eww client connects to the Eww console running inside your application.  We can now do just about anything we want, while we're *inside* the running app.
+
+Let's get a REPL::
+
+    (eww) repl
+    Dropping to REPL...
+    Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+    [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+    Note: This interpreter is running *inside* of your application.  Be careful.
+    >>>
+
+Since we're in the same process as the leaky script, we can check for uncollectable cycles very easily::
+
+    >>> import gc
+    >>> gc.collect()
+    0
+    >>> len(gc.garbage)
+    998
+    >>>
+
+998 uncollectable objects.  Ouch.
+
+Before we dig any deeper, we ought to get some statistics around memory consumption so we can verify the bug and our fix.
+
+To do that, we'll use Eww's statistics and graphing tools.  Let's add a datapoint at the start of each iteration in the for loop::
+
+    for num in range(500):
+        eww.graph('Memory Usage', (num, eww.memory_consumption()))
+        parent = Parent()
+
+Restart the leaky script, and connect with the Eww client again.  This time, instead of going straight to the REPL, let's check out our new stat::
+
+    (eww) stats
+    Graphs:
+      Memory Usage:500
+    (eww)
+
+Cool, we've got 500 datapoints for the 'Memory Usage' statistic.  We can get the raw datapoints by running :code:`stats 'Memory Usage`, but that's not very helpful.  Let's generate a graph instead::
+
+    (eww) stats -g 'Memory Usage'
+    Chart written to Memory Usage.svg
+    (eww)
+
+Which gives us something like this:
+
