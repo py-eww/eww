@@ -118,7 +118,7 @@ Restart the leaky script, and connect with the Eww client again.  This time, ins
       Memory Usage:500
     (eww)
 
-Cool, we've got 500 datapoints for the 'Memory Usage' statistic.  We can get the raw datapoints by running :code:`stats 'Memory Usage`, but that's not very helpful.  Let's generate a graph instead::
+Cool, we've got 500 datapoints for the 'Memory Usage' statistic.  We can get the raw datapoints by running :code:`stats 'Memory Usage'`, but that's not very helpful.  Let's generate a graph instead::
 
     (eww) stats -g 'Memory Usage'
     Chart written to Memory Usage.svg
@@ -126,3 +126,12 @@ Cool, we've got 500 datapoints for the 'Memory Usage' statistic.  We can get the
 
 Which gives us something like this:
 
+.. figure:: images/memory_usage.svg
+
+   *This is a fancy SVG, depending on your browser it may appear jumbled due to the theme used.  When displayed on it's own, it's far clearer.  Trends are easy to determine either way.*
+
+Yep, that's a memory leak.
+
+Now, how do we identify what's actually causing the leak to happen?
+
+Enter objgraph.
