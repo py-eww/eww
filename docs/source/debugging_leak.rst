@@ -41,7 +41,7 @@ If only all reference cycles were this simple.
 
     Python uses a *reference counting* mechanism for reaping old objects.  Python keeps track of the number of names attached to objects, and if that number drops to 0, Python will reap that object.
 
-    Python can *also* handle most reference cycles.  The gc <link here> (garbage collection) module will take care of that for us.
+    Python can *also* handle most reference cycles.  The :py:mod:`gc` (garbage collection) module will take care of that for us.
 
     What the gc *can't* do is fix reference cycles where **both** objects have a ``__del__`` method.  The gc cannot automatically determine a safe order to run them in, so it refuses to reap either object.
 
