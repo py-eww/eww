@@ -76,7 +76,7 @@ We added a call to :code:`eww.embed()`, which sets up everything for Eww.  We al
 
 Now, we'll fire up the Eww client.  In another terminal window, run :code:`eww`.  You should see something like this::
 
-    (eww)basecamp ~: eww
+    basecamp ~: eww
     Welcome to the Eww console. Type 'help' at any point for a list of available commands.
     Running in PID: 4899 Name: ./leak_demo.py
     (eww)
