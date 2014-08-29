@@ -12,4 +12,4 @@
 __version__ = '0.0.1'
 
 from .implant import embed, remove
-from eww.stats import incr, put, decr, graph
+from eww.stats import incr, put, decr, graph, memory_consumption

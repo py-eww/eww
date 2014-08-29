@@ -14,6 +14,12 @@
 from collections import deque, namedtuple
 import logging
 from Queue import Full, Empty
+try:
+    import resource
+except ImportError:
+    # We're on Windows
+    pass
+import sys
 
 LOGGER = logging.getLogger(__name__)
 
@@ -165,3 +171,14 @@ def graph(name, datapoint):
                                     value=datapoint))
     except Full:
         LOGGER.warning('Stats queue is full.  Stat being silently dropped.')
+
+def memory_consumption():
+    """Returns memory consumption (specifically, max rss). Currently this
+       uses the resource module, and is only available on Unix.  We silently
+       return 0 on Windows.
+       """
+
+    if 'resource' not in sys.modules:
+        return 0
+
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
