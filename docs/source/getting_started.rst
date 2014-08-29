@@ -8,7 +8,7 @@ Supported Platforms
 
 Every Eww release is tested on OSX and Linux.
 
-Eww *should* work on Windows, but we do not make any guarantees, or test anything on Windows.
+Eww *probably* works on Windows, but we do not make any guarantees, or test anything on Windows.
 
 Installation
 ------------
