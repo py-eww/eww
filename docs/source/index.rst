@@ -14,7 +14,7 @@ Eww is a pretty nifty tool for debugging and introspecting running Python progra
 
 Eww gives you access to a Python REPL *inside* of your running application.  Also, pretty awesome statistics and graphing tools.
 
-Using Eww is as simple as adding this to your Python app::
+Using Eww involves adding two lines to your app::
 
     import eww
     eww.embed()
@@ -23,6 +23,7 @@ And then connecting from your terminal::
 
     basecamp ~: eww
     Welcome to the Eww console. Type 'help' at any point for a list of available commands.
+    Running in PID: 93294 Name: ./demo.py
     (eww)
 
 That's it.
