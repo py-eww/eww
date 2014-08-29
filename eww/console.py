@@ -15,6 +15,8 @@
 # pylint: disable=no-self-use, no-member
 
 import logging
+import __main__ as main
+import os
 import socket
 import sys
 import threading
@@ -68,7 +70,9 @@ class ConsoleThread(threading.Thread):
             self.register_io()
             command = Command()
             command.intro = 'Welcome to the Eww console. Type \'help\' at any '
-            command.intro += 'point for a list of available commands.'
+            command.intro += 'point for a list of available commands.\n'
+            command.intro += 'Running in PID: ' + str(os.getpid()) + ' '
+            command.intro += 'Name: ' + main.__file__
             command.prompt = '(eww) '
             command.cmdloop()
         except Exception as catchall:  # pylint: disable=broad-except
