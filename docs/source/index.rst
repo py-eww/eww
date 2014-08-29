@@ -36,6 +36,7 @@ Looking to contribute to Eww?  Check out our :ref:`contributing` guide.
    :maxdepth: 2
    :hidden:
 
+   Introduction <self>
    getting_started
    debugging_leak
    security
