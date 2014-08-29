@@ -12,7 +12,7 @@ Welcome to Eww's documentation
 
 Eww is a pretty nifty tool for debugging and introspecting running Python programs.
 
-Eww gives you access to a Python REPL *inside* of your running application.  Also, pretty awesome statistics and graphing tools.
+Eww gives you access to a Python REPL *inside* of your running application, plus easy to use statistics and graphing tools.
 
 Using Eww involves adding two lines to your app::
 
