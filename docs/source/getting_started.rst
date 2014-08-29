@@ -6,7 +6,9 @@ Getting Started
 Supported Platforms
 -------------------
 
-Every Eww release is tested on OSX and Linux.  There is nothing that should prevent Eww from running on Windows, but we do not currently provide any guarantees of Windows support or testing.
+Every Eww release is tested on OSX and Linux.
+
+Eww *should* work on Windows, but we do not make any guarantees, or test anything on Windows.
 
 Installation
 ------------
