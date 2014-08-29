@@ -132,6 +132,73 @@ Which gives us something like this:
 
 Yep, that's a memory leak.
 
-Now, how do we identify what's actually causing the leak to happen?
+To identify exactly what's causing the leak, we're going to use `Objgraph <http://mg.pov.lt/objgraph/>`_.  A simple :code:`pip install objgraph` will install it for you.  You'll also need to have `graphviz <http://www.graphviz.org/>`_ installed for the nice graphs.
 
-Enter objgraph.
+.. note::
+    Objgraph includes a method called :code:`show_most_common_types()` that can be used to find leaking objects.  We are inspecting the :code:`gc.garbage` list instead, but it's good to be familiar with :code:`show_most_common_types()`.
+
+Time to dig into one of the uncollectable objects in :code:`gc.garbage` and see if we can find the issue.  Let's head into the REPL again and use objgraph to show us some more detail::
+
+    (eww) repl
+    Dropping to REPL...
+    Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+    [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+    Note: This interpreter is running *inside* of your application.  Be careful.
+    >>> import gc
+    >>> gc.collect()
+    0
+    >>> import objgraph
+    >>> objgraph.show_backrefs(gc.garbage[0], max_depth=10)
+    Graph written to /var/folders/gv/1xcz06bj2c5gfkl632fbjfr40000gn/T/objgraph-_qnjjD.dot (9 nodes)
+    Graph viewer (xdot) not found, generating a png instead
+    Image generated as /var/folders/gv/1xcz06bj2c5gfkl632fbjfr40000gn/T/objgraph-_qnjjD.png
+    >>>
+
+The generated graph makes the problem crystal clear:
+
+.. image:: images/objgraph.png
+
+There are a few ways to fix this.
+
+* We can use the :py:mod:`weakref` module to make Child's reference to Parent a weak reference.
+* We can explicitly break the reference.
+* We can change the scripts design to not require cyclic references like this.
+
+Let's go with Option #2 for simplicity here.  Update the for loop to have a del at the end of each iteration::
+
+    for num in range(500):
+        eww.graph('Memory Usage', (num, eww.memory_consumption()))
+        parent = Parent()
+        child = Child()
+
+        parent.child = child
+        child.parent = parent
+
+        del child.parent
+
+It's easy to tell if this worked.  We'll connect with Eww, check if there are any uncollectable objects, and graph memory usage again::
+
+    (eww) repl
+    Dropping to REPL...
+    Python 2.7.5 (default, Mar  9 2014, 22:15:05)
+    [GCC 4.2.1 Compatible Apple LLVM 5.0 (clang-500.0.68)] on darwin
+    Note: This interpreter is running *inside* of your application.  Be careful.
+    >>> import gc
+    >>> gc.collect()
+    0
+    >>> len(gc.garbage)
+    0
+    >>> # Good!
+    >>> exit
+    Exiting REPL...
+    (eww) stats -g 'Memory Usage' -f 'memory_usage_after_fix'
+    Chart written to memory_usage_after_fix.svg
+    (eww)
+
+When we look at the new graph, we don't see a perfectly flat line like we'd expect.  This has to do with how Pymalloc works (and some memory consumption by Eww).  What's important is to compare the scale of this graph to the scale of the previous graph.
+
+.. figure:: images/memory_usage_after_fix.svg
+
+   *This is a fancy SVG, depending on your browser it may appear jumbled due to the theme used.  When displayed on it's own, it's far clearer.  Trends are easy to determine either way.*
+
+That's about it for the basic tour.  Read on for more advanced features, and information on how Eww works.
