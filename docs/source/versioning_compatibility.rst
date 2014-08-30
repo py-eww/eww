@@ -13,7 +13,7 @@ That means:
 The Public API
 --------------
 
-The public API is defined as anything exported in :code:`eww/__init__.py`.  That includes:
+The public API, for the purpose of ensuring compatibility, is enumerated here:
 
 * :code:`eww.embed`
 * :code:`eww.remove`
@@ -22,6 +22,11 @@ The public API is defined as anything exported in :code:`eww/__init__.py`.  That
 * :code:`eww.decr`
 * :code:`eww.graph`
 * :code:`eww.memory_consumption`
+* :code:`sys.stdin.register`
+* :code:`sys.stdout.register`
+* :code:`sys.stderr.register`
+* :code:`__builtin__.quit.register`
+* :code:`__builtin__.exit.register`
 
 New functionality may be added to these functions but, on the same major version number, all changes are guaranteed to be backwards-compatible.
 
