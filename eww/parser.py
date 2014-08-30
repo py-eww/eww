@@ -6,8 +6,6 @@
     We need to make some modifications to optparse for our environment.  This
     module implements a subclass of optparse with needed changes in place.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 # Pylint warns about too many public methods.  That's optparse's fault.
 # pylint: disable=too-many-public-methods

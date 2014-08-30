@@ -18,8 +18,6 @@
     the public register/unregister APIs on QuitterProxy for it.  More info on
     their use is available in the 'Public API' section of the documentation.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 import threading

@@ -11,8 +11,6 @@
     you should still have a healthy fear), I strongly recommend not interacting
     with anything here directly.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 from Queue import Queue

@@ -5,8 +5,6 @@
 
     Provides functions for inserting and removing Eww.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 import sys

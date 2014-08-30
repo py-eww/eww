@@ -13,8 +13,6 @@
 
     More documentation is available in our.. documentation.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 # PyLint picks up a lot of things here that it shouldn't.  We clean up here.
 # pylint: disable=too-few-public-methods, no-self-use, invalid-name

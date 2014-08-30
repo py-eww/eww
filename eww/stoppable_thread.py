@@ -6,8 +6,6 @@
     threading.Thread class that exposes a stop API.  Subclasses of this
     must check for .stop_requested regularly.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 import threading

@@ -7,8 +7,6 @@
     This module also provides some helper functions for stats, as well as
     defining our public API for stats.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 from collections import deque, namedtuple

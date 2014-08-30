@@ -6,8 +6,6 @@
     Eww's dispatch thread.  Listens for incoming connections and creates
     consoles for them.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 # Pylint will warn on the select statement.  It's there for future expansion.
 # pylint: disable=unused-variable

@@ -7,8 +7,6 @@
     command.Command() for each new connection and handles all of the support
     for it (proxies and the like).
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 # We *could* make register/unregister functions, but they aren't as meaningful
 # outside of ConsoleThread.

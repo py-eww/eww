@@ -12,8 +12,6 @@
     option to extend eww in a backwards compatible way with fun things like SSH,
     TTY support and the like.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 # pylint: disable=invalid-name, unused-import
 

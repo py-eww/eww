@@ -19,8 +19,6 @@
     can use the register() and unregister() public APIs.  Please see the
     'Public API' section of the documentation for details on using them.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 import logging
