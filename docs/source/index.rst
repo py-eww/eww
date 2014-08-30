@@ -45,4 +45,4 @@ Looking to contribute to Eww?  Check out our :ref:`contributing` guide.
    troubleshooting
    internals
    contributing
-   api
+   API <api/index>
