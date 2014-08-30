@@ -1,4 +1,4 @@
-.PHONY: docs test test-pdb pylint pylint-all
+.PHONY: docs test test-pdb pylint pylint-all website
 
 docs:
 	rm -rf ./docs/build/*
@@ -16,3 +16,6 @@ pylint:
 pylint-all:
 	pylint eww
 	pylint scripts/eww
+
+website:
+	rsync -avz website/* eww.io:/var/www/eww.io/
