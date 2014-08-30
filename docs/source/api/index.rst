@@ -6,5 +6,14 @@ Introduction
    :hidden:
 
    self
-   eww
    command
+   console
+   dispatch
+   implant
+   ioproxy
+   parser
+   quitterproxy
+   shared
+   stats
+   stoppable_thread
+   client

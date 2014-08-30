@@ -1,4 +1,1 @@
-command
-=======
-
-test
+.. automodule:: eww.command
