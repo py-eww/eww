@@ -1,4 +1,4 @@
-.PHONY: docs test test-pdb pylint pylint-all website
+.PHONY: docs test test-pdb tox pylint pylint-all website
 
 docs:
 	rm -rf ./docs/build/*
@@ -9,6 +9,9 @@ test:
 
 test-pdb:
 	nosetests --with-coverage --cover-package=eww -s --cover-erase --cover-branches --nocapture --cover-inclusive -x --pdb
+
+tox:
+	tox
 
 pylint:
 	pylint eww

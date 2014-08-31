@@ -12,6 +12,11 @@ Eww's source is on `Github <https://github.com/py-eww/eww>`_.
 
 After forking, make your changes in a new branch off of master.  When you're ready to send the PR, send it against Eww's master branch.
 
+To run the tests, you'll need to run::
+
+    make tests  # To run all tests with the current interpreter
+    make tox    # To run all tests on all supported interpreters
+
 Tests are not *required*, but definitely encouraged.
 
 Make sure to add yourself to the contributor's file.
