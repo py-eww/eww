@@ -22,8 +22,9 @@ from .stats import StatsThread
 LOGGER = logging.getLogger(__name__)
 
 class WildlyInsecureFlagNotSet(Exception):
-    """Raised when someone tries to make eww listen on an external interface
-       without setting the 'wildly_insecure' flag.
+    """Raised when someone tries to make Eww listen on an external interface
+       without setting the ``wildly_insecure`` flag in their
+       :py:mod:`~eww.implant.embed` call.
        """
 
 def embed(host='localhost', port=10000, timeout=1, max_datapoints=500,

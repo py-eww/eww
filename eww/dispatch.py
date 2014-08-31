@@ -20,7 +20,7 @@ from .stoppable_thread import StoppableThread
 LOGGER = logging.getLogger(__name__)
 
 class DispatchThread(StoppableThread):
-    """DispatchThread runs the connection listener thread. As a StoppableThread
+    """``DispatchThread`` runs the connection listener thread. As a StoppableThread
     subclass, this thread *must* check for the .stop_requested flag.
     """
 

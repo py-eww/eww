@@ -3,8 +3,9 @@
     eww.parser
     ~~~~~~~~~~
 
-    We need to make some modifications to optparse for our environment.  This
-    module implements a subclass of optparse with needed changes in place.
+    We need to make some modifications to :py:mod:`optparse` for our
+    environment.  This module creates a subclass of :py:mod:`optparse` with
+    the necessary changes.
 
 """
 # Pylint warns about too many public methods.  That's optparse's fault.

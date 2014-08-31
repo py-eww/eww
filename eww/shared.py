@@ -4,6 +4,7 @@
     ~~~~~~~~~~
 
     Contains all of our global mutable state.  Everything here is dangerous.
+
     Because we are a library rather than an app, we're forced to use icky
     things like locks as a defensive mechanism.
 

@@ -3,21 +3,21 @@
     eww.ioproxy
     ~~~~~~~~~~~
 
-    We move IOProxy instances into place of the IO files (sys.std[in, out,
-    err]). IOProxy provides a thread-local proxy to whatever we want to use
+    We replace ``sys.std[in, out, err]`` with instances of ``IOProxy``.
+    ``IOProxy`` provides a thread-local proxy to whatever we want to use
     for IO.
 
     It is worth mentioning that this is *not* a perfect proxy.  Specifically,
     it doesn't proxy any magic methods.  There are lots of ways to fix that,
     but so far it hasn't been needed.
 
-    If you want to make modification to the IO files, any changes you make
-    prior to calling embed will be respected and handled correctly.  If you
-    change the IO files after calling embed, everything will break.  Ooof.
+    If you want to make modification to sys.std[in, out, err], any changes you
+    make prior to calling embed will be respected and handled correctly.  If
+    you change the IO files after calling embed, everything will break.  Ooof.
 
     Fortunately, that's a rare use case.  In the event you want to though, you
-    can use the register() and unregister() public APIs.  Please see the
-    'Public API' section of the documentation for details on using them.
+    can use the register() and unregister() public APIs.  Check out the
+    :ref:`troubleshooting` page for more information.
 
 """
 
@@ -28,9 +28,8 @@ LOGGER = logging.getLogger(__name__)
 
 class IOProxy(object):
     """IOProxy provides a proxy object meant to replace sys.std[in, out, err].
-    It does not proxy magic methods.  You can register your own file
-    customization by calling register()/unregister().  More detail is
-    available in the public API documentation.
+    It does not proxy magic methods.  It is used by calling the object's
+    register and unregister methods.
     """
 
     def __init__(self, original_file):
@@ -69,8 +68,8 @@ class IOProxy(object):
             LOGGER.debug('unregister() called, but no IO_file registered.')
 
     def write(self, data, *args, **kwargs):
-        """Modify the write method to force a flush so our sockets work
-        correctly.
+        """Modify the write method to force a flush after each write so our
+        sockets work correctly.
 
         Args:
             data (str): A string to be written to the file being proxied.

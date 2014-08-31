@@ -4,8 +4,8 @@
     ~~~~~~~~~
 
     Eww's stats thread & interface.  Receives and processes stats requests.
-    This module also provides some helper functions for stats, as well as
-    defining our public API for stats.
+
+    This module also contains any helper functions for stats.
 
 """
 

@@ -32,7 +32,7 @@ class ConsoleThread(threading.Thread):
         """Sets up our socket and socket_file.
 
         Args:
-            user_socket (socket.socket): A socket connected to a client.
+            user_socket (Socket): A socket connected to a client.
         """
         super(ConsoleThread, self).__init__()
         self.user_socket = user_socket

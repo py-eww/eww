@@ -3,20 +3,22 @@
     eww.quitterproxy
     ~~~~~~~~~~~~~~~~
 
-    QuitterProxy is a threading.local based proxy used to override the normal
-    quit behavior on demand.
+    QuitterProxy is a :py:class:`threading.local`-based proxy used to override
+    the normal quit behavior on demand.  It is very similar to IOProxy, but
+    rather than proxying files, it proxies Quitter objects.  We need to do this
+    so calling exit() or quit() in the REPL won't kill the console connection.
 
-    Specifically, calling quit()/exit() will normally raise the SystemExit
-    exception, *and* close stdin.  We can catch the SystemExit exception, but
-    if stdin is closed, it kills our socket.
+    This is because calling quit()/exit() will raise the SystemExit exception,
+    *and* close stdin.  We can catch the SystemExit exception, but if stdin is
+    closed, it kills our socket.
 
     Normally that's exactly the behavior you want, but because we embed a REPL
-    in the eww console, exiting the REPL can cause the entire session to exit,
+    in the Eww console, exiting the REPL can cause the entire session to exit,
     not just the REPL.
 
     If you want to make modifications to the quit or exit builtins, you can use
-    the public register/unregister APIs on QuitterProxy for it.  More info on
-    their use is available in the 'Public API' section of the documentation.
+    the public register/unregister APIs on QuitterProxy for it.  It works the
+    same way as on :py:mod:`~eww.ioproxy.IOProxy` objects.
 
 """
 
@@ -28,8 +30,7 @@ LOGGER = logging.getLogger(__name__)
 class QuitterProxy(object):
     """QuitterProxy provides a proxy object meant to replace __builtin__.[quit,
     exit].  You can register your own quit customization by calling
-    register()/unregister().  More detail is available in the public API
-    documentation.
+    register()/unregister().
     """
 
     def __init__(self, original_quit):

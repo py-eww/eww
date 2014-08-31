@@ -4,13 +4,40 @@
     scripts.eww
     ~~~~~~~~~~~
 
-    scripts.eww is the recommended frontend for connecting to a listening eww
-    instance.
+    The Eww client is the recommended frontend for connecting to a listening
+    Eww instance.
 
-    Strictly, this client isn't required.  Netcat and the like *currently* work
-    just fine.  However, by putting this client out the door, we open up the
-    option to extend eww in a backwards compatible way with fun things like SSH,
-    TTY support and the like.
+    Before criticizing this implementation, it's important to understand why
+    this was done.
+
+    I consider :py:mod:`readline` support a **hard** requirement.
+
+    :py:mod:`readline` is currently only supported by :py:func:`raw_input`.
+    :py:mod:`readline` does expose a few calls into the underlying library, but
+    not nearly what we need to implement it ourselves without using
+    :py:func:`raw_input`.
+
+    There are a few solutions to this problem:
+
+    1. Implement readline-like support ourselves in Python
+    2. Call the underlying C library ourselves
+    3. Implement proper PTY support on both ends of the connection
+    4. Use :py:func:`raw_input`
+
+    Option 1 is a lot more work than it seems like.  It would certainly be
+    valuable, and an interesting library to create.  The scope of work required
+    to do it properly just for this is difficult to justify.
+
+    Option 2 would require a compilation step and complicate installation.
+
+    Option 3 would be ideal.  However, implementing a cross-platform PTY over
+    a socket in Python is difficult, error-prone, and tough to debug.  It's
+    absolutely on the table and would let us add a ton of features, but it's
+    not happening right off the bat.
+
+    Which leaves us with option 4, and results in our current implementation.
+
+    With that in mind, read on.
 
 """
 # pylint: disable=invalid-name, unused-import
