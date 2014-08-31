@@ -3,9 +3,9 @@
     eww.command
     ~~~~~~~~~~~
 
-    This is our custom command module.  It is a subclass of the cmd.Cmd stdlib
-    library, with some modifications.  The most significant change is using
-    classes rather than functions for the commands.
+    This is our custom command module.  It is a subclass of
+    :py:class:`cmd.Cmd`.  The most significant change is using classes rather
+    than functions for the commands.
 
     Due to this change, we don't use CamelCase for command class names here.
     Strictly that's ok via PEP8 since we are kinda treating these like
@@ -118,7 +118,7 @@ class Command(cmd.Cmd):
             return True
 
     class repl_command(BaseCmd):
-        """Drops the user into a python repl."""
+        """Drops the user into a python REPL."""
 
         name = 'repl'
         description = 'Provides an interactive REPL.'
@@ -271,7 +271,7 @@ class Command(cmd.Cmd):
             return shrunk
 
         def generate_graph(self, options, stat_name):
-            """Generate a graph of the stat_name provided.
+            """Generate a graph of ``stat_name``.
 
             Args:
                 options (dict): A dictionary of option values generated from

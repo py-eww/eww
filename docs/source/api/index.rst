@@ -1,11 +1,10 @@
-Introduction
-============
+API
+===
 
 .. toctree::
    :maxdepth: 2
    :hidden:
 
-   self
    command
    console
    dispatch
