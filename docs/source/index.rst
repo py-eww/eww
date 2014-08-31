@@ -43,6 +43,5 @@ Looking to contribute to Eww?  Check out our :ref:`contributing` guide.
    statistics
    versioning_compatibility
    troubleshooting
-   internals
    contributing
    api/index
