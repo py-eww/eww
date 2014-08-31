@@ -32,7 +32,12 @@ class EwwClient(object):
     """Manages all client communication."""
 
     def __init__(self, host, port):
-        """Init."""
+        """Init.
+
+        Args:
+            host (str): A host to connect to.
+            port (int): A port to connect to.
+        """
         self.host = host
         self.port = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,11 +49,19 @@ class EwwClient(object):
         self.prompts.append('... ')
 
     def connect(self):
-        """Connects to an Eww instance."""
+        """Connects to an Eww instance.
+
+        Returns:
+            None
+        """
         self.sock.connect((self.host, self.port))
 
     def display_output(self):
-        """Displays output from the Eww instance."""
+        """Displays output from the Eww instance.
+
+        Returns:
+            None
+        """
 
         while True:
             try:
@@ -76,7 +89,11 @@ class EwwClient(object):
                 sys.stdout.flush()
 
     def get_input(self):
-        """Collects user input and sends it to the Eww instance."""
+        """Collects user input and sends it to the Eww instance.
+
+        Returns:
+            None
+        """
 
         user_input = raw_input(self.current_prompt)
         if user_input == 'exit' or user_input == 'quit':
@@ -90,7 +107,11 @@ class EwwClient(object):
         self.sock.sendall(user_input + '\n')
 
     def clientloop(self):
-        """Repeatedly loops through display_output and get_input."""
+        """Repeatedly loops through display_output and get_input.
+
+        Returns:
+            None
+        """
 
         try:
             while True:
