@@ -3,9 +3,9 @@
     eww.console
     ~~~~~~~~~~~
 
-    This implements eww's primary console thread.  It creates an instance of
-    command.Command() for each new connection and handles all of the support
-    for it (proxies and the like).
+    This implements Eww's primary console thread.  It creates an instance of
+    :py:mod:`~eww.command.Command` for each new connection and handles all of
+    the support for it (proxies and the like).
 
 """
 # We *could* make register/unregister functions, but they aren't as meaningful
