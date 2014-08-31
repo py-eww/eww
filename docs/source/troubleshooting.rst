@@ -3,6 +3,11 @@
 Troubleshooting
 ===============
 
+If you're having some trouble that isn't documented here, the best two ways to get support are:
+
+* Filing a github `issue <https://github.com/py-eww/eww/issues>`_
+* Posting to the Eww `google group <https://groups.google.com/forum/#!forum/eww-support/new>`_
+
 No input or output with Eww client
 ----------------------------------
 
@@ -24,3 +29,8 @@ I can't make Eww listen on a public interface
 ---------------------------------------------
 
 Check out :ref:`a_note_on_security`.
+
+eww.memory_consumption() always returns 0
+-----------------------------------------
+
+That function uses the :py:mod:`resource` module, which isn't available on Windows systems.  Rather than raising an exception and potentially taking your app offline, we return 0 instead.
