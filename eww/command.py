@@ -11,8 +11,6 @@
     Strictly that's ok via PEP8 since we are kinda treating these like
     callables.  Just a heads up.
 
-    More documentation is available in our.. documentation.
-
 """
 # PyLint picks up a lot of things here that it shouldn't.  We clean up here.
 # pylint: disable=too-few-public-methods, no-self-use, invalid-name
