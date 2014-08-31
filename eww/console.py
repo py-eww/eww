@@ -31,8 +31,8 @@ class ConsoleThread(threading.Thread):
     def __init__(self, user_socket):
         """Sets up our socket and socket_file.
 
-           Args:
-               user_socket (socket.socket): A socket connected to a client.
+        Args:
+            user_socket (socket.socket): A socket connected to a client.
         """
         super(ConsoleThread, self).__init__()
         self.user_socket = user_socket
@@ -41,8 +41,8 @@ class ConsoleThread(threading.Thread):
     def register_io(self):
         """Registers the correct IO streams for the thread.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         sys.stdin.register(self.user_socket_file)
         sys.stdout.register(self.user_socket_file)
@@ -51,8 +51,8 @@ class ConsoleThread(threading.Thread):
     def unregister_io(self):
         """Unregisters the custom IO streams for the thread.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         sys.stdin.unregister()
         sys.stdout.unregister()
@@ -61,16 +61,16 @@ class ConsoleThread(threading.Thread):
     def stop(self):
         """Can be used to forcibly stop the thread.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         self.user_socket.shutdown(socket.SHUT_RDWR)
 
     def cleanup(self):
         """Cleans up our thread.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         print 'Disconnecting...'
         try:
@@ -85,8 +85,8 @@ class ConsoleThread(threading.Thread):
     def run(self):
         """Sets up our IO and starts a Console instance.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         try:
             self.register_io()

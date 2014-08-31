@@ -60,8 +60,8 @@ class IOProxy(object):
     def unregister(self):
         """Used to unregister a file for use in a particular thread.
 
-           Returns:
-               None
+        Returns:
+            None
         """
         try:
             del self.io_routes.io_file
