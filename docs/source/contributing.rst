@@ -60,11 +60,19 @@ You'll want to clone the repository, and then create a new branch for your work.
     Switched to a new branch 'documentation_fix'
     basecamp ~/contributing/eww:
 
+You'll want to create a new virtual environment for working on Eww, and install Eww's requirements::
+
+    basecamp ~/contributing/eww: mkvirtualenv eww
+    New python executable in eww/bin/python
+    Installing setuptools, pip...done.
+    (eww)basecamp ~/contributing/eww: pip install -r requirements.txt
+    <snip>
+
 Now you can go ahead and make your changes.
 
 When they are complete, you'll want to commit them with a descriptive commit message, and push them to Github::
 
-    basecamp ~/contributing/eww: git status
+    (eww)basecamp ~/contributing/eww: git status
     On branch documentation_fix
     Changes not staged for commit:
       (use "git add <file>..." to update what will be committed)
@@ -73,18 +81,18 @@ When they are complete, you'll want to commit them with a descriptive commit mes
         modified:   README.rst
 
     no changes added to commit (use "git add" and/or "git commit -a")
-    basecamp ~/contributing/eww: git add .
-    basecamp ~/contributing/eww: git status
+    (eww)basecamp ~/contributing/eww: git add .
+    (eww)basecamp ~/contributing/eww: git status
     On branch documentation_fix
     Changes to be committed:
       (use "git reset HEAD <file>..." to unstage)
 
         modified:   README.rst
 
-    basecamp ~/contributing/eww: git commit -m "updated README"
+    (eww)basecamp ~/contributing/eww: git commit -m "updated README"
     [documentation_fix 1af9a21] updated README
      1 file changed, 1 insertion(+), 1 deletion(-)
-    basecamp ~/contributing/eww: git push origin documentation_fix
+    (eww)basecamp ~/contributing/eww: git push origin documentation_fix
     Username for 'https://github.com': kelly-everydev
     Password for 'https://kelly-everydev@github.com':
     Counting objects: 3, done.
@@ -94,7 +102,7 @@ When they are complete, you'll want to commit them with a descriptive commit mes
     Total 3 (delta 2), reused 0 (delta 0)
     To https://github.com/kelly-everydev/eww.git
      * [new branch]      documentation_fix -> documentation_fix
-    basecamp ~/contributing/eww:
+    (eww)basecamp ~/contributing/eww:
 
 Once your changes are on Github, you can open up the pull request.  Take a look at your personal repo again and you should see a new button for creating a pull request.
 
