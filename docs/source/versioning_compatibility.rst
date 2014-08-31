@@ -37,6 +37,11 @@ The public API, for the purpose of ensuring compatibility, is enumerated here:
 
 New functionality may be added to these functions but, on the same major version number, all changes are guaranteed to be backwards-compatible.
 
+Client Compatibility
+--------------------
+
+Any client in the same MAJOR version as the server can be used to connect to the server.
+
 What constitutes backwards-compatible?
 --------------------------------------
 
