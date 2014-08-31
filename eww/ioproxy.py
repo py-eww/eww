@@ -34,17 +34,35 @@ class IOProxy(object):
     """
 
     def __init__(self, original_file):
-        """Creates the thread local and registers the original file."""
+        """Creates the thread local and registers the original file.
+
+        Args:
+           original_file (file): Since IOProxy is used to replace an
+                                 existing file, ``original_file`` should be
+                                 the file you're replacing.
+        """
         self.io_routes = threading.local()
         self.original_file = original_file
         self.register(original_file)
 
     def register(self, io_file):
-        """Used to register a file for use in a particular thread."""
+        """Used to register a file for use in a particular thread.
+
+        Args:
+            io_file (file): ``io_file`` will override the existing file, but
+                            only in the thread ``register`` is called in.
+
+        Returns:
+            None
+        """
         self.io_routes.io_file = io_file
 
     def unregister(self):
-        """Used to unregister a file for use in a particular thread."""
+        """Used to unregister a file for use in a particular thread.
+
+           Returns:
+               None
+        """
         try:
             del self.io_routes.io_file
         except AttributeError:
@@ -53,6 +71,12 @@ class IOProxy(object):
     def write(self, data, *args, **kwargs):
         """Modify the write method to force a flush so our sockets work
         correctly.
+
+        Args:
+            data (str): A string to be written to the file being proxied.
+
+        Returns:
+            None
         """
         try:
             self.io_routes.io_file.write(data, *args, **kwargs)
@@ -65,7 +89,7 @@ class IOProxy(object):
             LOGGER.debug('Caught error while writing: ' + str(exception))
 
     def __getattr__(self, name):
-        """All other methods and attributes lookups should go to the original
+        """All other methods and attributes lookups go to the original
         file.
         """
         return getattr(self.io_routes.io_file, name)

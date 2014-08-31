@@ -41,13 +41,28 @@ class StatsThread(StoppableThread):
     """
 
     def __init__(self, max_datapoints=500, timeout=1):
-        """Init."""
+        """Init.
+
+        Args:
+            max_datapoints (int): The maximum number of graph datapoints to
+                                  record.  If this limit is hit, datapoints
+                                  will be discard based on age, oldest-first.
+            timeout (float): Frequency, in seconds, to check for a stop or
+                             remove request.
+        """
         super(StatsThread, self).__init__()
         self.timeout = timeout
         self.max_datapoints = max_datapoints
 
     def process_stat(self, msg):
-        """Accepts and processes stats messages."""
+        """Accepts and processes stats messages.
+
+        Args:
+            msg (Stat): A populated ``Stat`` object.
+
+        Returns:
+            None
+        """
 
         if msg.type == 'counter':
 
@@ -107,7 +122,14 @@ class StatsThread(StoppableThread):
                 STATS_QUEUE.task_done()
 
 def counter_manipulation(stat):
-    """Backend to all counter change."""
+    """Backend to all counter changes.
+
+    Args:
+        stat (Stat): A populated ``Stat`` object.
+
+    Returns:
+        None
+    """
 
     if not isinstance(stat.name, str):
         raise InvalidCounterOption('Name must be a string.')
@@ -121,7 +143,15 @@ def counter_manipulation(stat):
         LOGGER.warning('Stats queue is full.  Stat being silently dropped.')
 
 def incr(name, amount=1):
-    """Increments a counter."""
+    """Increments a counter.
+
+    Args:
+        name (str): The name of the counter to increment.
+        amount (int): The amount to increment ``name`` by.
+
+    Returns:
+        None
+    """
 
     counter_manipulation(Stat(name=name,
                               type='counter',
@@ -129,7 +159,15 @@ def incr(name, amount=1):
                               value=amount))
 
 def put(name, amount=1):
-    """Puts a counter to a specific value."""
+    """Puts a counter to a specific value.
+
+    Args:
+        name (str): The name of the counter to set to a specific value.
+        amount (int): The value to set ``name`` to.
+
+    Returns:
+        None
+    """
 
     counter_manipulation(Stat(name=name,
                               type='counter',
@@ -137,7 +175,12 @@ def put(name, amount=1):
                               value=amount))
 
 def decr(name, amount=1):
-    """Reduces a counter."""
+    """Reduces a counter.
+
+    Args:
+        name (str): The name of the counter to decrement.
+        amount (int): The value to decrement ``name`` by.
+    """
 
     counter_manipulation(Stat(name=name,
                               type='counter',
@@ -145,7 +188,15 @@ def decr(name, amount=1):
                               value=amount))
 
 def graph(name, datapoint):
-    """Adds an X.Y datapoint."""
+    """Adds an X.Y datapoint.
+
+    Args:
+        name (str): The name of the graph to record a datapoint for.
+        datapoint (tuple): A tuple representing an (X, Y) datapoint.
+
+    Returns:
+        None
+    """
 
     if not isinstance(name, str):
         raise InvalidGraphDatapoint('Name must be a string.')
@@ -172,9 +223,11 @@ def graph(name, datapoint):
 
 def memory_consumption():
     """Returns memory consumption (specifically, max rss). Currently this
-       uses the resource module, and is only available on Unix.  We silently
-       return 0 on Windows.
-       """
+    uses the resource module, and is only available on Unix.
+
+    Returns:
+        int: MaxRSS value.  On Windows, this always returns 0.
+    """
 
     if 'resource' not in sys.modules:
         return 0

@@ -28,7 +28,30 @@ class WildlyInsecureFlagNotSet(Exception):
 
 def embed(host='localhost', port=10000, timeout=1, max_datapoints=500,
           wildly_insecure=False):
-    """The main entry point for eww.  It creates the threads we need."""
+    """The main entry point for eww.  It creates the threads we need.
+
+        Args:
+            host (str): The interface to listen for connections on.
+            port (int): The port to listen for connections on.
+            timeout (float): Frequency, in seconds, to check for a stop or
+                             remove request.
+            max_datapoints (int): The maximum number of graph datapoints to
+                                  record.  If this limit is hit, datapoints
+                                  will be discarded based on age, oldest-first.
+            wildly_insecure (bool): This must be set to True in order to set
+                                    the ``host`` argument to anything besides
+                                    ``localhost`` or ``127.0.0.1``.
+
+        Returns:
+            None
+
+        Raises:
+            WildlyInsecureFlagNotSet:  Will be raised if you attempt to change
+                                       the ``host`` parameter to something
+                                       besides ``localhost`` or ``127.0.0.1``
+                                       without setting ``wildly_insecure`` to
+                                       True.
+    """
 
     if not wildly_insecure:
         try:
@@ -69,7 +92,11 @@ def embed(host='localhost', port=10000, timeout=1, max_datapoints=500,
     return
 
 def remove():
-    """Stops and removes all of eww."""
+    """Stops and removes all of eww.
+
+       Returns:
+           None
+    """
 
     with IMPLANT_LOCK:
         if EMBEDDED.isSet() == False:

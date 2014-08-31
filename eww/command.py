@@ -54,6 +54,12 @@ class Command(cmd.Cmd):
         def run(self, line):
             """Performs the requested command.  You should definitely override
             this.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                bool: True to exit, None otherwise.
             """
             pass
 
@@ -65,7 +71,14 @@ class Command(cmd.Cmd):
         usage = 'N/A'
 
         def run(self, line):
-            """Returns True to trigger an exit."""
+            """Returns True to trigger an exit.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                bool: True
+            """
             return True
 
     class exit_command(BaseCmd):
@@ -76,7 +89,14 @@ class Command(cmd.Cmd):
         usage = 'exit'
 
         def run(self, line):
-            """Returns True to trigger an exit."""
+            """Returns True to trigger an exit.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                bool: True
+            """
             return True
 
     class quit_command(BaseCmd):
@@ -87,7 +107,14 @@ class Command(cmd.Cmd):
         usage = 'quit'
 
         def run(self, line):
-            """Returns True to trigger an exit."""
+            """Returns True to trigger an exit.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                bool: True
+            """
             return True
 
     class repl_command(BaseCmd):
@@ -100,17 +127,31 @@ class Command(cmd.Cmd):
         def register_quit(self):
             """Registers our custom quit function to prevent stdin from being
             closed.
+
+            Returns:
+                None
             """
             __builtin__.quit.register(safe_quit)
             __builtin__.exit.register(safe_quit)
 
         def unregister_quit(self):
-            """Unregisters our custom quit function."""
+            """Unregisters our custom quit function.
+
+            Returns:
+                None
+            """
             __builtin__.quit.unregister()
             __builtin__.exit.unregister()
 
         def run(self, line):
-            """Implements the repl."""
+            """Implements the repl.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                None
+            """
 
             print 'Dropping to REPL...'
 
@@ -158,6 +199,7 @@ class Command(cmd.Cmd):
                            help='Graph title'))
 
         def __init__(self):
+            """Init."""
             super(Command.stats_command, self).__init__()
 
             self.parser = Parser()
@@ -167,7 +209,11 @@ class Command(cmd.Cmd):
             self.max_points = 30
 
         def display_stat_summary(self):
-            """Prints a summary of collected stats."""
+            """Prints a summary of collected stats.
+
+            Returns:
+                None
+            """
 
             if not COUNTER_STORE and not GRAPH_STORE:
                 print "No stats recorded."
@@ -184,7 +230,14 @@ class Command(cmd.Cmd):
                     print " ", stat + ':' + str(len(GRAPH_STORE[stat]))
 
         def display_single_stat(self, stat_name):
-            """Prints a specific stat."""
+            """Prints a specific stat.
+
+            Args:
+                stat_name (str): The stat name to display details of.
+
+            Returns:
+                None
+            """
 
             if stat_name in COUNTER_STORE:
                 print COUNTER_STORE[stat_name]
@@ -198,7 +251,15 @@ class Command(cmd.Cmd):
                 print 'No stat recorded with that name.'
 
         def reduce_data(self, data):
-            """Shrinks len(data) to points."""
+            """Shrinks len(data) to ``self.max_points``.
+
+            Args:
+                data (iterable): An iterable greater than ``self.max_points``.
+
+            Returns:
+                list: A list with a fair sampling of objects from ``data``,
+                      and a length of ``self.max_points.``
+            """
 
             # Thanks to Adam Forsyth for this implementation
             shrunk = []
@@ -210,7 +271,16 @@ class Command(cmd.Cmd):
             return shrunk
 
         def generate_graph(self, options, stat_name):
-            """Generate a graph of the stat_name provided."""
+            """Generate a graph of the stat_name provided.
+
+            Args:
+                options (dict): A dictionary of option values generated from
+                                our parser.
+                stat_name (str): A graph name to create a graph from.
+
+            Returns:
+                None
+            """
 
             if stat_name not in GRAPH_STORE:
                 print 'No graph records exist for name', stat_name
@@ -249,7 +319,14 @@ class Command(cmd.Cmd):
                 print 'Unable to write to', os.getcwd() + '/' + filename
 
         def run(self, line):
-            """Outputs recorded stats and generates graphs."""
+            """Outputs recorded stats and generates graphs.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                None
+            """
             if not line:
                 self.display_stat_summary()
                 return
@@ -295,7 +372,11 @@ class Command(cmd.Cmd):
             self.parser.add_options(self.options)
 
         def get_commands(self):
-            """Returns a list of command classes."""
+            """Returns a list of command classes.
+
+            Returns:
+                list: A list of command classes (not instantiated).
+            """
 
             commands = []
             blacklist = ['EOF_command']
@@ -313,7 +394,11 @@ class Command(cmd.Cmd):
             return commands
 
         def display_commands(self):
-            """Displays all included commands."""
+            """Displays all included commands.
+
+            Returns:
+                None
+            """
 
             commands = self.get_commands()
 
@@ -324,14 +409,21 @@ class Command(cmd.Cmd):
             print ''
             print 'For more info on a specific command, enter "help <command>"'
 
-        def display_command_detail(self, line):
-            """Displays detailed command help."""
+        def display_command_detail(self, command_name):
+            """Displays detailed command help.
 
-            name = line + '_command'
+            Args:
+                command_name (str): A command name to print detailed help for.
+
+            Returns:
+                None
+            """
+
+            name = command_name + '_command'
             try:
                 cls = getattr(Command, name)
             except AttributeError:
-                print line, 'is not a valid command.'
+                print command_name, 'is not a valid command.'
                 return
 
             print 'Usage:'
@@ -366,7 +458,14 @@ class Command(cmd.Cmd):
                 print line
 
         def run(self, line):
-            """Provides help documentation."""
+            """Provides help documentation.
+
+            Args:
+                line (str): A command line argument to be parsed.
+
+            Returns:
+                None
+            """
 
             if not line:
                 self.display_commands()
@@ -384,6 +483,12 @@ class Command(cmd.Cmd):
     def onecmd(self, line):
         """We override cmd.Cmd.onecmd in order to support our class-based
         commands.  Changes are noted via comments.
+
+        Args:
+            line (str): A command (with arguments) to be executed.
+
+        Returns:
+            bool: True if a command is designed to exit, otherwise None.
         """
 
         cmd, arg, line = self.parseline(line)

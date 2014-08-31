@@ -33,6 +33,13 @@ class Parser(optparse.OptionParser):
         not expect this to return, but that's not really a problem for us
         since each command can be abstractly considered a different, new
         script.
+
+        Args:
+            msg (str): The error message that will be passed to the ParserError
+                       exception.
+
+        Raises:
+            ParserError: Raised when a command cannot be parsed.
         """
         raise ParserError(msg)
 

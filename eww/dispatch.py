@@ -25,13 +25,24 @@ class DispatchThread(StoppableThread):
     """
 
     def __init__(self, host, port, timeout=1):
-        """Init."""
+        """Init.
+
+           Args:
+               host (str): The interface to listen for connections on.
+               port (int): The port to listen for connections on.
+               timeout (float): Frequency, in seconds, to check for a stop or
+                                remove request.
+        """
         super(DispatchThread, self).__init__()
         self.server_address = (host, port)
         self.timeout = timeout
 
     def run(self):
-        """Main thread loop."""
+        """Main thread loop.
+
+           Returns:
+               None
+        """
 
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
