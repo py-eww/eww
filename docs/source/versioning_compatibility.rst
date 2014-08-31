@@ -1,3 +1,5 @@
+.. _versioning:
+
 Versioning and Compatibility
 ============================
 
@@ -15,20 +17,49 @@ The Public API
 
 The public API, for the purpose of ensuring compatibility, is enumerated here:
 
-* :code:`eww.embed`
-* :code:`eww.remove`
-* :code:`eww.incr`
-* :code:`eww.put`
-* :code:`eww.decr`
-* :code:`eww.graph`
-* :code:`eww.memory_consumption`
-* :code:`sys.stdin.register`
-* :code:`sys.stdout.register`
-* :code:`sys.stderr.register`
-* :code:`__builtin__.quit.register`
-* :code:`__builtin__.exit.register`
+* :py:mod:`eww.embed <eww.implant.embed>`
+* :py:mod:`eww.remove <eww.implant.remove>`
+* :py:mod:`eww.incr <eww.stats.incr>`
+* :py:mod:`eww.put <eww.stats.put>`
+* :py:mod:`eww.decr <eww.stats.decr>`
+* :py:mod:`eww.graph <eww.stats.graph>`
+* :py:mod:`eww.memory_consumption <eww.stats.memory_consumption>`
+* :py:mod:`sys.stdin.register <eww.ioproxy.IOProxy.register>`
+* :py:mod:`sys.stdin.unregister <eww.ioproxy.IOProxy.unregister>`
+* :py:mod:`sys.stdout.register <eww.ioproxy.IOProxy.register>`
+* :py:mod:`sys.stdout.unregister <eww.ioproxy.IOProxy.unregister>`
+* :py:mod:`sys.stderr.register <eww.ioproxy.IOProxy.register>`
+* :py:mod:`sys.stderr.unregister <eww.ioproxy.IOProxy.unregister>`
+* :py:mod:`__builtin__.quit.register <eww.quitterproxy.QuitterProxy.register>`
+* :py:mod:`__builtin__.quit.unregister <eww.quitterproxy.QuitterProxy.unregister>`
+* :py:mod:`__builtin__.exit.register <eww.quitterproxy.QuitterProxy.register>`
+* :py:mod:`__builtin__.exit.unregister <eww.quitterproxy.QuitterProxy.unregister>`
 
 New functionality may be added to these functions but, on the same major version number, all changes are guaranteed to be backwards-compatible.
+
+What constitutes backwards-compatible?
+--------------------------------------
+
+The interfaces listed above will always adhere to their documentation, and that documentation will not be changed (but may be extended) in the same major version.
+
+The documentation is considered the sole source of truth and defines the details of the public API contract.
+
+Practically, that means that if the code does something that the documentation does not agree with, the code is wrong and it will be fixed.
+
+Here are a few examples of what Eww considers non-breaking changes:
+
+* Adding a new configuration option to eww.embed with a default setting that preserves the existing contract
+* Adding a new item to the public API
+* Fixing a public API method that is documented to return ``True`` in certain circumstances, but mistakenly returns ``None``
+
+And breaking changes:
+
+* Requiring a new option in a public API call
+* Changing the documentation of a public API call, rather than extending it
+* Removing a public API call
+* Renaming a public API call
+
+My goal is to make this clear to understand.  The description above is the 'letter of the law', but the spirit is straightforward: we will not break your implementation.
 
 Specifying a Version
 --------------------
