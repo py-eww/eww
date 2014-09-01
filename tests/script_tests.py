@@ -7,8 +7,6 @@
 
 """
 
-from nose.tools import assert_raises
-
 import eww
 from scripts import eww as client
 from utils import *
@@ -162,38 +160,3 @@ def test_main():
     output = output.stdout.getvalue()
 
     assert output == 'Connection refused.\n'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -396,6 +396,14 @@ def test_double_bind():
     blocker_socket.close()
     eww.remove()
 
+def test_memory_consumption():
+    """Tests eww.memory_consumption()"""
+
+    max_rss = eww.memory_consumption()
+
+    assert type(max_rss) == int
+    assert max_rss > 0
+
 def test_wildly_insecure():
     """Confirms that a user can't make Eww listen on a public interface without
     setting the wildly_insecure flag.

@@ -14,7 +14,7 @@ import logging
 from Queue import Full, Empty
 try:
     import resource
-except ImportError:
+except ImportError:  # pragma: no cover
     # We're on Windows
     pass
 import sys
@@ -229,7 +229,7 @@ def memory_consumption():
         int: MaxRSS value.  On Windows, this always returns 0.
     """
 
-    if 'resource' not in sys.modules:
+    if 'resource' not in sys.modules:  # pragma: no cover
         return 0
 
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
