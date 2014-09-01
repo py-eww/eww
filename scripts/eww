@@ -129,7 +129,7 @@ class EwwClient(object):
         user_input = line or raw_input(self.current_prompt)
 
         if user_input == 'exit' or user_input == 'quit':
-            if self.current_prompt == '(Eww) ':
+            if self.current_prompt == '(eww) ':
                 try:
                     self.sock.shutdown(socket.SHUT_RDWR)
                 except socket.error:
