@@ -133,7 +133,7 @@ class EwwClient(object):
             if self.current_prompt == '(eww) ':
                 try:
                     self.sock.shutdown(socket.SHUT_RDWR)
-                except socket.error:
+                except socket.error:  # pragma: no cover
                     pass
                 self.sock.close()
                 raise ConnectionClosed

@@ -78,7 +78,7 @@ class DispatchThread(StoppableThread):
             if self.stop_requested:
                 try:
                     server_socket.shutdown(socket.SHUT_RDWR)
-                except socket.error:
+                except socket.error:  # pragma: no cover
                     # If we don't have an active connection this will raise,
                     # just pass.
                     pass
