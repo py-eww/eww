@@ -102,7 +102,6 @@ def connect_via_client(host='localhost', port=10000, retries=20, delay=0.1):
 
     return eww_client
 
-
 def connect_to_eww(host='localhost', port=10000, retries=20, delay=0.1):
     """Attempts to connect to eww with a configurable delay/retry."""
 
