@@ -35,7 +35,8 @@
     absolutely on the table and would let us add a ton of features, but it's
     not happening right off the bat.
 
-    Which leaves us with option 4, and results in our current implementation.
+    Which leaves us with option 4, and results in our current (difficult to
+    test) implementation.
 
     With that in mind, read on.
 
@@ -138,8 +139,14 @@ class EwwClient(object):
                 raise ConnectionClosed
         self.sock.sendall(user_input + '\n')
 
-    def clientloop(self):
+    def clientloop(self, debug=False, line=None):
         """Repeatedly loops through display_output and get_input.
+
+        Args:
+            debug (bool): Used for testing.  If ``debug`` is True,
+                          ``clientloop`` only goes through one iteration.
+            line (str): If ``debug`` is True, this will be passed to get_input.
+                        Useful for testing.
 
         Returns:
             None
@@ -148,7 +155,12 @@ class EwwClient(object):
         try:
             while True:
                 self.display_output()
-                self.get_input()
+                if debug:
+                    self.get_input(line)
+                    return  # pragma: no cover
+                else:  # pragma: no cover
+                    self.get_input()
+
         except ConnectionClosed:
             pass
 

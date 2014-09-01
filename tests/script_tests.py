@@ -83,6 +83,7 @@ def test_display_output():
     assert raises
 
 def test_get_input():
+    """Tests client.EwwClient.get_input"""
     eww.embed(timeout=0.01)
     assert expected_thread_count(3)
 
@@ -99,14 +100,43 @@ def test_get_input():
 
     assert output == 'Command unrecognized.\n'
 
+    eww_client.sock.close()
+
+    eww_client = connect_via_client()
+    with CaptureOutput(proxy=True):
+        eww_client.display_output()
+
+    eww_client.sock.shutdown(socket.SHUT_RDWR)
+
+    raises = False
+    try:
+        eww_client.get_input(line='exit')
+    except client.ConnectionClosed:
+        raises = True
+    assert raises
+
     eww.remove()
 
+def test_clientloop():
+    """Tests client.EwwClient.clientloop().  We test each part on it's own, so
+    This is just a sanity check to make sure we don't raise.
+    """
 
+    eww.embed(timeout=0.01)
+    assert expected_thread_count(3)
 
+    eww_client = connect_via_client()
 
+    with CaptureOutput(proxy=True) as output:
+        eww_client.clientloop(debug=True, line='exit')
+    output = output.stdout.getvalue()
 
+    assert 'Eww' in output
+    assert 'help' in output
+    assert 'PID' in output
+    assert 'Name' in output
 
-
+    eww.remove()
 
 
 
