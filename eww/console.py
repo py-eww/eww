@@ -64,7 +64,13 @@ class ConsoleThread(threading.Thread):
         Returns:
             None
         """
-        self.user_socket.shutdown(socket.SHUT_RDWR)
+        try:
+            self.user_socket.shutdown(socket.SHUT_RDWR)
+        except socket.error:
+            # This can raise if the *client* forcibly closes the connection.
+            # If that happens, we can safely pass.  The console thread will
+            # die.
+            pass
 
     def cleanup(self):
         """Cleans up our thread.
