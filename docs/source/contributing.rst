@@ -3,7 +3,7 @@
 Contributing
 ============
 
-We hugely appreciate every contribution, no matter the size.  You don't have to worry about snippy responses, or your pull request being ignored.
+We hugely appreciate every contribution, no matter the size.  You don't have to worry about snippy responses, or your pull request being ignored.  We want you involved in Eww.
 
 For Experienced Contributors
 ----------------------------
@@ -12,7 +12,7 @@ Eww's source is on `Github <https://github.com/py-eww/eww>`_.
 
 After forking, make your changes in a new branch off of master.  When you're ready to send the PR, send it against Eww's master branch.
 
-To run the tests, you'll need to run::
+Tests can be ran like so::
 
     make tests  # To run all tests with the current interpreter
     make tox    # To run all tests on all supported interpreters
@@ -46,7 +46,7 @@ There will be a link on the right hand side that you can use in conjuction with 
 
 .. image:: images/clone_link.png
 
-You'll want to clone the repository, and then create a new branch for your work.  We'll call our branch 'documentation_fix'::
+You'll want to clone the repository, and then create a new branch for your work.  We'll call the branch ``documentation_fix``::
 
     basecamp ~/contributing: git clone https://github.com/kelly-everydev/eww.git
     Cloning into 'eww'...
@@ -60,7 +60,7 @@ You'll want to clone the repository, and then create a new branch for your work.
     Switched to a new branch 'documentation_fix'
     basecamp ~/contributing/eww:
 
-You'll want to create a new virtual environment for working on Eww, and install Eww's requirements::
+Next, create a new virtual environment for working on Eww, and install Eww's development dependencies::
 
     basecamp ~/contributing/eww: mkvirtualenv eww
     New python executable in eww/bin/python
@@ -70,7 +70,14 @@ You'll want to create a new virtual environment for working on Eww, and install 
 
 Now you can go ahead and make your changes.
 
-When they are complete, you'll want to commit them with a descriptive commit message, and push them to Github::
+To make sure your changes haven't broken something accidentally, we have a collection of tests you can run to confirm things are working properly.
+
+You can run the tests like so::
+
+    (eww)basecamp ~/contributing/eww: make tests  # To run all tests with the current interpreter
+    (eww)basecamp ~/contributing/eww: make tox    # To run all tests on all supported interpreters
+
+When your changes are complete, you'll want to commit them with a descriptive commit message, and push them to Github::
 
     (eww)basecamp ~/contributing/eww: git status
     On branch documentation_fix
@@ -108,7 +115,7 @@ Once your changes are on Github, you can open up the pull request.  Take a look 
 
 .. image:: images/pull_request_button.png
 
-Pushing the pull request button brings you to the pull request creation screen.  You'll want to fill it out a bit like this, and then click 'Create pull request'.
+Pressing the pull request button brings you to the pull request creation screen.  You'll want to fill it out a bit like this, and then click 'Create pull request'.
 
 .. image:: images/pull_request_form.png
 
@@ -116,6 +123,8 @@ If you head back to the main Eww repository, you'll see your pull request listed
 
 .. image:: images/complete_pull_request.png
 
-If everything looks ok, then the Eww maintainer will accept your pull request and release a new version of Eww with your changes.  It's possible we'll have questions about your change.  If we do, we'll add a comment to your pull request and work with you to figure things out.
+If everything looks ok, then the Eww maintainer will accept your pull request and release a new version of Eww with your changes.
+
+It's possible we'll have questions about your change.  If we do, we'll add a comment to your pull request and work with you to figure things out.
 
 That's it! You've made your first open source contribution.
