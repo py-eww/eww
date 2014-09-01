@@ -20,6 +20,7 @@ import time
 import threading
 
 import eww
+from scripts import eww as client
 
 IO = namedtuple('IO', 'stdout stderr')
 
@@ -80,6 +81,27 @@ def sock_did_output(sock, expected, timeout=5):
 
     # If we got here, no joy.
     return False
+
+def connect_via_client(host='localhost', port=10000, retries=20, delay=0.1):
+    """Attempts to connect to eww via the client."""
+
+    connection_attempts = 0
+    eww_client = None
+
+    while True:
+        try:
+            eww_client = client.EwwClient(host='localhost', port=10000)
+            eww_client.connect()
+            break
+        except socket.error:
+            connection_attempts += 1
+            if connection_attempts == retries:
+                raise
+            else:
+                time.sleep(delay)
+
+    return eww_client
+
 
 def connect_to_eww(host='localhost', port=10000, retries=20, delay=0.1):
     """Attempts to connect to eww with a configurable delay/retry."""
