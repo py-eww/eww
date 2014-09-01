@@ -26,22 +26,37 @@ IO = namedtuple('IO', 'stdout stderr')
 class CaptureOutput(object):
     """Grabs anything sent to stdout & stderr."""
 
-    def __init__(self):
-        self.original_stdout = sys.stdout
-        self.original_stderr = sys.stderr
+    def __init__(self, proxy=False):
+
+        self.proxy = proxy
+
+        if proxy:
+            pass
+        else:
+            self.original_stdout = sys.stdout
+            self.original_stderr = sys.stderr
 
     def __enter__(self):
         new_stdout = StringIO()
         new_stderr = StringIO()
 
-        sys.stdout = new_stdout
-        sys.stderr = new_stderr
+
+        if self.proxy:
+            sys.stdout.register(new_stdout)
+            sys.stderr.register(new_stderr)
+        else:
+            sys.stdout = new_stdout
+            sys.stderr = new_stderr
 
         return IO(stdout = new_stdout, stderr = new_stderr)
 
     def __exit__(self, *args, **kwargs):
-        sys.stdout = self.original_stdout
-        sys.stderr = self.original_stderr
+        if self.proxy:
+            sys.stdout.unregister()
+            sys.stderr.unregister()
+        else:
+            sys.stdout = self.original_stdout
+            sys.stderr = self.original_stderr
 
 def sock_did_output(sock, expected, timeout=5):
     """Waits up to timeout for 'expected' to appear."""
