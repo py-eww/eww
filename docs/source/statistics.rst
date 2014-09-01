@@ -60,3 +60,5 @@ Limits
 By default, Eww will only store the 500 most recent graph datapoints.  This is to prevent the memory usage of busy applications from ballooning.  You can change this limit when embedding Eww like so::
 
     eww.embed(max_datapoints=1000)
+
+``max_datapoints`` is a per-name limit.  That is, if ``max_datapoints`` is 1000, then each unique graph name can have up to 1000 entries.

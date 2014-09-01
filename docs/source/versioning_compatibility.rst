@@ -8,7 +8,7 @@ Eww follows the `semantic versioning <http://semver.org/>`_ specification.
 That means:
 
 * Eww's versions are denoted by three integers: MAJOR.MINOR.PATCH
-* The PATCH number is incremented on bugfixes and documentation changes
+* The PATCH number is incremented on bugfixes
 * The MINOR number is incremented when backwards-compatible functionality is added
 * The MAJOR number is incremented when the public API is changed
 

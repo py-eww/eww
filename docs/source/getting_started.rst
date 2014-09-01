@@ -8,6 +8,8 @@ Supported Platforms
 
 Every Eww release is tested on OSX and Linux.
 
+On each platform, Eww is tested on CPython 2.6, 2.7, and PyPy.
+
 Eww *probably* works on Windows, but we do not make any guarantees, or test anything on Windows.
 
 Installation

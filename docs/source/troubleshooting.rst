@@ -3,10 +3,7 @@
 Troubleshooting
 ===============
 
-If you're having some trouble that isn't documented here, the best two ways to get support are:
-
-* Filing a github `issue <https://github.com/py-eww/eww/issues>`_
-* Posting to the Eww `google group <https://groups.google.com/forum/#!forum/eww-support/new>`_
+If you're having some trouble that isn't documented here, the best way to get support is by filing a `Github issue <https://github.com/py-eww/eww/issues>`_.
 
 No input or output with Eww client
 ----------------------------------
