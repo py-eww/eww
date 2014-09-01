@@ -14,7 +14,7 @@ After forking, make your changes in a new branch off of master.  When you're rea
 
 Tests can be ran like so::
 
-    make tests  # To run all tests with the current interpreter
+    make test  # To run all tests with the current interpreter
     make tox    # To run all tests on all supported interpreters
 
 Tests are not *required*, but definitely encouraged.
@@ -74,7 +74,7 @@ To make sure your changes haven't broken something accidentally, we have a colle
 
 You can run the tests like so::
 
-    (eww)basecamp ~/contributing/eww: make tests  # To run all tests with the current interpreter
+    (eww)basecamp ~/contributing/eww: make test  # To run all tests with the current interpreter
     (eww)basecamp ~/contributing/eww: make tox    # To run all tests on all supported interpreters
 
 When your changes are complete, you'll want to commit them with a descriptive commit message, and push them to Github::
