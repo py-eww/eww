@@ -164,7 +164,20 @@ class EwwClient(object):
         except ConnectionClosed:
             pass
 
-if __name__ == '__main__':
+def main(debug=False, line=None, opt_args=None):
+    """Main function.
+
+    Args:
+        debug (bool): Used for testing.  If ``debug`` is True,
+                      ``clientloop`` only goes through one iteration.
+        line (str): If ``debug`` is True, this will be passed to get_input.
+                    Useful for testing.
+        opt_args (list): If ``debug`` is True, this list is parsed by optparse
+                         instead of sys.argv.
+
+    Returns:
+        None
+    """
 
     parser = optparse.OptionParser()
     parser.add_option('-s', '--server',
@@ -180,7 +193,10 @@ if __name__ == '__main__':
                       type='int',
                       help='The port to connect on.')
 
-    options, remainder = parser.parse_args()
+    if debug:
+        options, remainder = parser.parse_args(opt_args)
+    else:
+        options, remainder = parser.parse_args()  # pragma: no cover
     del remainder
     options = vars(options)
 
@@ -193,8 +209,11 @@ if __name__ == '__main__':
         sys.exit(1)
 
     try:
-        client.clientloop()
-    except KeyboardInterrupt:
+        client.clientloop(debug, line)
+    except KeyboardInterrupt:  # pragma: no cover
         pass
 
     print "Shutting down..."
+
+if __name__ == '__main__':  # pragma: no cover -- we test the function directly
+    main()

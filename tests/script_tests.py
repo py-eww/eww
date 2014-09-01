@@ -138,6 +138,31 @@ def test_clientloop():
 
     eww.remove()
 
+def test_main():
+    """Tests client.EwwClient.main() as best we can."""
+
+    eww.embed(timeout=0.01)
+
+    with CaptureOutput(proxy=True) as output:
+        client.main(debug=True, line='exit', opt_args=[])
+    output = output.stdout.getvalue()
+
+    assert 'Eww' in output
+    assert 'help' in output
+    assert 'PID' in output
+    assert 'Name' in output
+
+    eww.remove()
+
+    with CaptureOutput() as output:
+        try:
+            client.main(debug=True, line='exit', opt_args=[])
+        except SystemExit:
+            pass
+    output = output.stdout.getvalue()
+
+    assert output == 'Connection refused.\n'
+
 
 
 
