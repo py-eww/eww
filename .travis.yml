@@ -12,4 +12,4 @@ deploy:
     secure: g3ThMJPGPM/KX9UxCBrv5GuqTPudZ4sXtCVipQVBnxRJ2o70Wl+ImnWpdWgiOklYmEMAovhT4Mxeio5XKfX5t69JCMSu5ba3E2rNsrIv9JuxZkqqmymn0GsSDFEgcRaFEGZLrdt6k6axRFWuGnmA+x0aQltC8ElztOrtFa8D8s8=
   on:
     tags: true
-    repo: py-eww/eww
+
