@@ -13,8 +13,36 @@
 <body>
     <div class="container">
         <div class="sixteen columns logo">
-            <img width="200px" src="static/logo.svg"><br \><br \>
-            <em>A nifty Python debugger.</em>
+            <img width="200px" src="static/logo.svg">
+        </div>
+        <div class="sixteen columns subtitle">
+            A nifty python debugger.
+        </div>
+        <div class="sixteen columns shields">
+            <a href="https://travis-ci.org/py-eww/eww"><img src="https://travis-ci.org/py-eww/eww.svg?branch=master"></a>
+            <a href="https://coveralls.io/r/py-eww/eww?branch=master"><img src="https://img.shields.io/coveralls/py-eww/eww.svg"></a>
+            <a href="http://docs.eww.io"><img src="https://readthedocs.org/projects/eww/badge/?version=latest"></a>
+        </div>
+        <div class="eight columns offset-by-four intro">
+            <p>
+                Eww is an MIT licensed Python library that gives you access to a Python REPL <em>inside</em> your running application.
+            </p>
+            <p>
+                Adding Eww to your app takes two lines of code:
+            </p>
+            <pre><code class="python">
+                import eww
+                eww.embed()
+            </code></pre>
+            <p>
+                Then just connect with the provided client:
+            </p>
+            <pre><code class="bash">
+                basecamp:~ eww blah
+            </code></pre>
+            <p>
+                Easy.
+            </p>
         </div>
     </div>
 </body>
