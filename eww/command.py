@@ -314,7 +314,7 @@ class Command(cmd.Cmd):
             try:
                 with open(filename, 'w') as svg_file:
                     svg_file.write(graph_svg)
-                    print 'Chart written to', filename
+                    print 'Chart written to', filename  # pragma: no cover
             except IOError:
                 print 'Unable to write to', os.getcwd() + '/' + filename
 

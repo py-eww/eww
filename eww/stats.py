@@ -82,21 +82,21 @@ class StatsThread(StoppableThread):
                 COUNTER_STORE[msg.name] = msg.value
 
             elif msg.action == 'decr':
-                try:
+                try:  # pragma: no cover
                     COUNTER_STORE[msg.name] -= msg.value
                 except KeyError:
                     COUNTER_STORE[msg.name] = -msg.value
 
         elif msg.type == 'graph':
 
-            if msg.name in COUNTER_STORE:
+            if msg.name in COUNTER_STORE:  # pragma: no cover
                 error = 'Ignoring attempt to write graph stat to a name used '
                 error += 'previously for counters.  Stat name: ' + msg.name
                 LOGGER.warning(error)
                 return
 
             if msg.action == 'add':
-                try:
+                try:  # pragma: no cover
                     GRAPH_STORE[msg.name].append(msg.value)
                 except KeyError:
                     GRAPH_STORE[msg.name] = deque(maxlen=self.max_datapoints)
