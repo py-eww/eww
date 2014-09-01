@@ -396,6 +396,23 @@ def test_double_bind():
     blocker_socket.close()
     eww.remove()
 
+def test_wildly_insecure():
+    """Confirms that a user can't make Eww listen on a public interface without
+    setting the wildly_insecure flag.
+    """
+
+    # assert_raises sucks
+
+    raises = False
+    try:
+        eww.embed(host='not-allowed', timeout=0.01)
+    except eww.implant.WildlyInsecureFlagNotSet:
+        raises = True
+
+    assert raises
+
+    eww.remove()
+
 def test_double_remove():
     """Tests we don't do anything goofy when someone tries to remove eww more
     than once simultaneously.

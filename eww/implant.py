@@ -56,7 +56,8 @@ def embed(host='localhost', port=10000, timeout=1, max_datapoints=500,
 
     if not wildly_insecure:
         try:
-            assert host == 'localhost' or '127.0.0.1' or '::1'
+            allowed = ['localhost', '127.0.0.1', '::1']
+            assert host in allowed
         except AssertionError:
             msg = 'You cannot listen on an external interface without setting '
             msg += 'wildly_insecure to True.'
