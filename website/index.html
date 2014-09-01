@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="static/base.css">
     <link rel="stylesheet" href="static/skeleton.css">
     <link rel="stylesheet" href="static/layout.css">
+    <link rel="stylesheet" href="static/prism.css">
     <link rel="stylesheet" href="static/custom.css">
 </head>
 <body>
@@ -30,20 +31,20 @@
             <p>
                 Adding Eww to your app takes two lines of code:
             </p>
-            <pre><code class="python">
-                import eww
-                eww.embed()
-            </code></pre>
+            <pre><code class="language-python">import eww
+eww.embed()</code></pre>
             <p>
                 Then just connect with the provided client:
             </p>
-            <pre><code class="bash">
-                basecamp:~ eww blah
-            </code></pre>
+            <pre><code class="language-bash">basecamp ~: eww
+Welcome to the Eww console. Type 'help' at any point for a list of available commands.
+Running in PID: 86232 Name: ./demo.py
+(eww)</code></pre>
             <p>
                 Easy.
             </p>
         </div>
     </div>
+    <script src="static/prism.js"></script>
 </body>
 </html>
