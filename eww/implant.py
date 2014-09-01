@@ -55,7 +55,7 @@ def embed(host='localhost', port=10000, timeout=1, max_datapoints=500,
     """
 
     if not wildly_insecure:
-        try:
+        try:  # pragma: no cover -- We hit this branch, but coverage disagrees
             allowed = ['localhost', '127.0.0.1', '::1']
             assert host in allowed
         except AssertionError:
