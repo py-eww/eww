@@ -7,7 +7,7 @@
 
 """
 
-__version__ = '0.0.1'
+__version__ = '1.0.0'
 
 from .implant import embed, remove
 from eww.stats import incr, put, decr, graph, memory_consumption
