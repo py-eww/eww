@@ -115,14 +115,19 @@ class EwwClient(object):
                 sys.stdout.write(msg)
                 sys.stdout.flush()
 
-    def get_input(self):
+    def get_input(self, line=None):
         """Collects user input and sends it to the Eww instance.
+
+        Args:
+            line (str): If provided, ``line`` is considered the input and
+                        raw_input is not used.
 
         Returns:
             None
         """
 
-        user_input = raw_input(self.current_prompt)
+        user_input = line or raw_input(self.current_prompt)
+
         if user_input == 'exit' or user_input == 'quit':
             if self.current_prompt == '(Eww) ':
                 try:
