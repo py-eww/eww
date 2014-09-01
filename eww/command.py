@@ -29,7 +29,7 @@ import __builtin__
 
 try:
     import pygal
-except ImportError:
+except ImportError:  # pragma: no cover
     # Just in case pygal isn't installed
     pass
 
@@ -286,7 +286,7 @@ class Command(cmd.Cmd):
                 print 'No graph records exist for name', stat_name
                 return
 
-            if 'pygal' not in sys.modules:
+            if 'pygal' not in sys.modules:  # pragma: no cover
                 print 'Pygal library unavailable.  Try running `pip install',
                 print 'pygal`.'
                 return
