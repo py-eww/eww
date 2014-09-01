@@ -68,7 +68,7 @@ class DispatchThread(StoppableThread):
 
             for sock in readable:
                 if sock is server_socket:
-                    user_socket, addr = sock.accept()
+                    user_socket, addr = sock.accept()  # pragma: no cover
 
                     user_thread = ConsoleThread(user_socket)
                     user_thread.daemon = True
