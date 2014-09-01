@@ -5,8 +5,6 @@
 
     All of the tests in this file can be ran without starting another process.
 
-    :copyright: (c) 2014 by Alex Philipp.
-    :license: MIT, see LICENSE for more details.
 """
 
 from collections import deque
