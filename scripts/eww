@@ -137,7 +137,7 @@ class EwwClient(object):
                     pass
                 self.sock.close()
                 raise ConnectionClosed
-        self.sock.sendall(user_input + '\n')
+        self.sock.sendall(user_input + '\n')  # pragma: no cover
 
     def clientloop(self, debug=False, line=None):
         """Repeatedly loops through display_output and get_input.
