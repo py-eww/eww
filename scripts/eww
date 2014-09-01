@@ -46,7 +46,7 @@
 import optparse
 try:
     import readline
-except ImportError:
+except ImportError:  # pragma: no cover
     # :(
     pass
 import socket
